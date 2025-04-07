@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { geminiClient } from "@/lib/gemini";
-import { ChatState, Message } from "@/types";
+import { ChatState, Message, ChatHistoryResponse } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 
 /**
@@ -14,11 +14,14 @@ export function useChat() {
     error: null,
     sessionId: null,
   });
+  const [apiKey, setApiKey] = useState<string | null>(
+    localStorage.getItem("gemini_api_key")
+  );
   const queryClient = useQueryClient();
   const { toast } = useToast();
   
   // Load chat history if sessionId exists
-  const { data: chatHistory } = useQuery({
+  const { data: chatHistory } = useQuery<ChatHistoryResponse>({
     queryKey: ['/api/chat', state.sessionId],
     enabled: !!state.sessionId,
   });
@@ -36,7 +39,7 @@ export function useChat() {
   // Mutation for sending messages
   const sendMessageMutation = useMutation({
     mutationFn: async (message: string) => {
-      return geminiClient.sendMessage(message, state.sessionId || undefined);
+      return geminiClient.sendMessage(message, state.sessionId || undefined, apiKey || undefined);
     },
     onMutate: (message) => {
       // Optimistically add user message to state
@@ -132,12 +135,23 @@ export function useChat() {
     clearChatMutation.mutate();
   }, [clearChatMutation]);
   
+  // Save the API key
+  const saveApiKey = useCallback((key: string) => {
+    localStorage.setItem("gemini_api_key", key);
+    setApiKey(key);
+  }, []);
+  
+  // Check if API key exists
+  const hasApiKey = !!apiKey;
+  
   return {
     messages: state.messages,
     isLoading: state.isLoading,
     error: state.error,
     sessionId: state.sessionId,
+    hasApiKey,
     sendMessage,
     clearChat,
+    saveApiKey,
   };
 }

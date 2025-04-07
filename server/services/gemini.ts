@@ -11,13 +11,13 @@ type GeminiResponse = z.infer<typeof geminiResponseSchema>;
  * Service to interact with Google's Gemini AI API
  */
 export class GeminiService {
-  private apiKey: string;
+  private defaultApiKey: string;
   private baseUrl: string;
 
   constructor() {
     // Get API key from environment variables
-    this.apiKey = process.env.GEMINI_API_KEY || '';
-    if (!this.apiKey) {
+    this.defaultApiKey = process.env.GEMINI_API_KEY || '';
+    if (!this.defaultApiKey) {
       console.warn("GEMINI_API_KEY not found in environment variables");
     }
     this.baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -26,15 +26,19 @@ export class GeminiService {
   /**
    * Generates a response from Gemini AI based on the user prompt
    * @param prompt User's message/prompt
+   * @param apiKey Optional API key to use instead of the environment variable
    * @returns Generated response text
    */
-  async generateResponse(prompt: string): Promise<string> {
-    if (!this.apiKey) {
+  async generateResponse(prompt: string, apiKey?: string): Promise<string> {
+    // Use provided API key or fall back to default
+    const effectiveApiKey = apiKey || this.defaultApiKey;
+    
+    if (!effectiveApiKey) {
       throw new Error("Gemini API key not configured");
     }
     
     try {
-      const url = `${this.baseUrl}/gemini-pro:generateContent?key=${this.apiKey}`;
+      const url = `${this.baseUrl}/gemini-pro:generateContent?key=${effectiveApiKey}`;
       
       const response = await fetch(url, {
         method: 'POST',

@@ -9,12 +9,14 @@ export const geminiClient = {
    * Sends a message to the Gemini AI through the server API
    * @param message The user's message
    * @param sessionId Optional session ID for continuing a conversation
+   * @param apiKey Optional API key for the Gemini API
    * @returns Promise with the API response
    */
-  async sendMessage(message: string, sessionId?: string): Promise<ChatApiResponse> {
+  async sendMessage(message: string, sessionId?: string, apiKey?: string): Promise<ChatApiResponse> {
     const response = await apiRequest("POST", "/api/chat", {
       message,
       sessionId,
+      apiKey,
     });
     return response.json();
   },

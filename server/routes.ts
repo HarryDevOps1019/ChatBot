@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 const chatRequestSchema = z.object({
   message: z.string().min(1, "Message cannot be empty"),
   sessionId: z.string().optional(),
+  apiKey: z.string().optional(),
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -26,7 +27,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const { message, sessionId } = validatedData.data;
+      const { message, sessionId, apiKey } = validatedData.data;
       
       // Generate or use existing session ID
       const currentSessionId = sessionId || nanoid();
@@ -50,7 +51,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate response from Gemini
       let responseText;
       try {
-        responseText = await geminiService.generateResponse(message);
+        responseText = await geminiService.generateResponse(message, apiKey);
       } catch (error) {
         console.error("Error generating response:", error);
         return res.status(500).json({ 
