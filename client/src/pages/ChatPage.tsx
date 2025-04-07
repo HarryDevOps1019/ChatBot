@@ -49,7 +49,7 @@ export const ChatPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen">
       <Header 
         onClearChat={clearChat} 
         onChangeApiKey={() => setIsApiKeyDialogOpen(true)} 

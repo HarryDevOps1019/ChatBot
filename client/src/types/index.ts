@@ -20,6 +20,7 @@ export interface ExampleCardProps {
   title: string;
   description: string;
   onClick: () => void;
+  iconComponent?: React.ReactNode;
 }
 
 // Define the message bubble props

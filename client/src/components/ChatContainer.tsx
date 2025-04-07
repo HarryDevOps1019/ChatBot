@@ -33,14 +33,16 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   }
 
   return (
-    <main className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
-      {messages.map((message, index) => (
-        <MessageBubble key={index} message={message} />
-      ))}
-      
-      {isLoading && <TypingIndicator />}
-      
-      <div ref={messagesEndRef} />
+    <main className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scroll-smooth">
+      <div className="max-w-4xl mx-auto">
+        {messages.map((message, index) => (
+          <MessageBubble key={index} message={message} />
+        ))}
+        
+        {isLoading && <TypingIndicator />}
+        
+        <div ref={messagesEndRef} />
+      </div>
     </main>
   );
 };

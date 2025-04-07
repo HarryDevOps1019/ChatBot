@@ -77,42 +77,42 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md border border-primary/30 bg-[#1A1C2E]/95 backdrop-blur-xl shadow-[0_0_30px_rgba(137,73,223,0.2)]">
         <DialogHeader>
-          <DialogTitle>Enter Gemini API Key</DialogTitle>
-          <DialogDescription>
-            To use TapTalk, you need to provide your own Google Gemini API key.
-            Your key is stored locally in your browser and only used to make requests to the Gemini API.
-            We don't store your API key on our servers.
+          <DialogTitle className="text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-400">Enter Gemini API Key</DialogTitle>
+          <DialogDescription className="text-gray-300">
+            To explore the cosmos with TapTalk, you need your own Gemini API key.
+            Your key is stored securely in your browser and only used to communicate with Gemini.
+            We never store your API key on our servers.
           </DialogDescription>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          <div className="space-y-2">
+          <div className="space-y-3">
             <Input
               id="apiKey"
               placeholder="Enter your Gemini API key"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              className="w-full"
+              className="w-full bg-black/40 border-primary/30 focus:border-primary/60 focus:ring-primary/30 text-white"
               type="password"
               autoComplete="off"
             />
-            <div className="text-xs space-y-1 text-gray-500">
+            <div className="text-xs space-y-2 text-gray-400 bg-primary/5 p-3 rounded-lg border border-primary/20">
               <p>
                 Don't have an API key?{" "}
                 <a
                   href="https://ai.google.dev/tutorials/setup"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline text-primary"
+                  className="text-primary/90 hover:text-primary transition-colors"
                 >
                   Get one from Google AI Studio
                 </a>
               </p>
-              <p>How to get your API key:</p>
-              <ol className="list-decimal pl-5 space-y-1">
-                <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline text-primary">Google AI Studio</a></li>
+              <p className="font-medium text-primary/80">How to get your API key:</p>
+              <ol className="list-decimal pl-5 space-y-1.5">
+                <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-primary/90 hover:text-primary transition-colors">Google AI Studio</a></li>
                 <li>Sign in with your Google account</li>
                 <li>Create an API key or use an existing one</li>
                 <li>Copy and paste it here</li>
@@ -124,9 +124,9 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
             >
-              {isLoading ? "Saving..." : "Save API Key"}
+              {isLoading ? "Verifying Key..." : "Activate Key"}
             </Button>
           </DialogFooter>
         </form>
