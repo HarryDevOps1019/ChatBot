@@ -19,9 +19,6 @@ export const Header: React.FC<HeaderProps> = ({ onClearChat, onChangeApiKey }) =
           </div>
           <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">TapTalk</h1>
         </div>
-        <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium border border-primary/20">
-          Powered by Gemini AI
-        </span>
       </div>
       
       <div className="flex gap-2">
