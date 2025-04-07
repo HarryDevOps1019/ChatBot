@@ -1,13 +1,15 @@
 import React from "react";
+import { Key } from "lucide-react";
 
 interface HeaderProps {
   onClearChat: () => void;
+  onChangeApiKey?: () => void;
 }
 
 /**
  * Header component with TapTalk branding and controls
  */
-export const Header: React.FC<HeaderProps> = ({ onClearChat }) => {
+export const Header: React.FC<HeaderProps> = ({ onClearChat, onChangeApiKey }) => {
   return (
     <header className="bg-white border-b border-gray-200 py-3 px-4 sm:px-6 flex items-center justify-between shadow-sm">
       <div className="flex items-center">
@@ -23,9 +25,20 @@ export const Header: React.FC<HeaderProps> = ({ onClearChat }) => {
       </div>
       
       <div className="flex gap-2">
+        {onChangeApiKey && (
+          <button 
+            onClick={onChangeApiKey}
+            className="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1 p-2 rounded-md hover:bg-gray-100 transition-colors"
+            title="Change API Key"
+          >
+            <Key className="h-4 w-4" />
+            <span className="hidden sm:inline">API Key</span>
+          </button>
+        )}
         <button 
           onClick={onClearChat}
           className="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1 p-2 rounded-md hover:bg-gray-100 transition-colors"
+          title="Clear Chat"
         >
           <i className="fas fa-broom"></i>
           <span className="hidden sm:inline">Clear Chat</span>

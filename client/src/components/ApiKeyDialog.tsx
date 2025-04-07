@@ -44,6 +44,17 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
     setIsLoading(true);
     
     try {
+      // Test the API key with a simple request
+      const testResponse = await fetch(`https://generativelanguage.googleapis.com/v1/models?key=${apiKey}`);
+      
+      if (!testResponse.ok) {
+        const errorData = await testResponse.json();
+        throw new Error(
+          errorData.error?.message || "Invalid API key. Please check and try again."
+        );
+      }
+      
+      // If validation passes, save the key
       onSave(apiKey);
       toast({
         title: "API key saved",
@@ -51,9 +62,12 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
       });
       onClose();
     } catch (error) {
+      console.error("API key validation error:", error);
       toast({
-        title: "Error",
-        description: "Failed to save API key. Please try again.",
+        title: "Invalid API Key",
+        description: error instanceof Error 
+          ? error.message 
+          : "Failed to validate API key. Please check your key and try again.",
         variant: "destructive",
       });
     } finally {
@@ -68,7 +82,8 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
           <DialogTitle>Enter Gemini API Key</DialogTitle>
           <DialogDescription>
             To use TapTalk, you need to provide your own Google Gemini API key.
-            Your key is stored locally and only used to make requests to the Gemini API.
+            Your key is stored locally in your browser and only used to make requests to the Gemini API.
+            We don't store your API key on our servers.
           </DialogDescription>
         </DialogHeader>
         
@@ -83,17 +98,26 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
               type="password"
               autoComplete="off"
             />
-            <p className="text-xs text-gray-500">
-              Don't have an API key?{" "}
-              <a
-                href="https://ai.google.dev/tutorials/setup"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline text-primary"
-              >
-                Get one from Google AI Studio
-              </a>
-            </p>
+            <div className="text-xs space-y-1 text-gray-500">
+              <p>
+                Don't have an API key?{" "}
+                <a
+                  href="https://ai.google.dev/tutorials/setup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-primary"
+                >
+                  Get one from Google AI Studio
+                </a>
+              </p>
+              <p>How to get your API key:</p>
+              <ol className="list-decimal pl-5 space-y-1">
+                <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline text-primary">Google AI Studio</a></li>
+                <li>Sign in with your Google account</li>
+                <li>Create an API key or use an existing one</li>
+                <li>Copy and paste it here</li>
+              </ol>
+            </div>
           </div>
           
           <DialogFooter className="sm:justify-end">

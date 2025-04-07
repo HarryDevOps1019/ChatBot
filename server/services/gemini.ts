@@ -20,7 +20,7 @@ export class GeminiService {
     if (!this.defaultApiKey) {
       console.warn("GEMINI_API_KEY not found in environment variables");
     }
-    this.baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
+    this.baseUrl = 'https://generativelanguage.googleapis.com/v1';
   }
   
   /**
@@ -38,7 +38,7 @@ export class GeminiService {
     }
     
     try {
-      const url = `${this.baseUrl}/gemini-pro:generateContent?key=${effectiveApiKey}`;
+      const url = `${this.baseUrl}/models/gemini-pro:generateContent?key=${effectiveApiKey}`;
       
       const response = await fetch(url, {
         method: 'POST',
@@ -57,8 +57,23 @@ export class GeminiService {
       });
       
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Gemini API error: ${response.status} - ${error}`);
+        const errorText = await response.text();
+        let errorMessage = `Gemini API error: ${response.status}`;
+        
+        try {
+          // Try to parse the error as JSON for more detailed information
+          const errorJson = JSON.parse(errorText);
+          if (errorJson.error && errorJson.error.message) {
+            errorMessage += ` - ${errorJson.error.message}`;
+          } else {
+            errorMessage += ` - ${errorText}`;
+          }
+        } catch (e) {
+          // If parsing fails, just use the raw error text
+          errorMessage += ` - ${errorText}`;
+        }
+        
+        throw new Error(errorMessage);
       }
       
       const data = await response.json();

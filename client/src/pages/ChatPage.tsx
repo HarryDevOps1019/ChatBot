@@ -12,11 +12,22 @@ export const ChatPage: React.FC = () => {
   const { messages, isLoading, sendMessage, clearChat, hasApiKey, saveApiKey } = useChat();
   const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] = useState(false);
 
-  // Check if API key is configured on component mount
+  // Check if API key is configured on component mount and listen for events
   useEffect(() => {
     if (!hasApiKey) {
       setIsApiKeyDialogOpen(true);
     }
+    
+    // Listen for events to open the API key dialog
+    const handleOpenApiKeyDialog = () => {
+      setIsApiKeyDialogOpen(true);
+    };
+    
+    window.addEventListener("open-api-key-dialog", handleOpenApiKeyDialog);
+    
+    return () => {
+      window.removeEventListener("open-api-key-dialog", handleOpenApiKeyDialog);
+    };
   }, [hasApiKey]);
 
   const handleSendMessage = (message: string) => {
@@ -39,7 +50,10 @@ export const ChatPage: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <Header onClearChat={clearChat} />
+      <Header 
+        onClearChat={clearChat} 
+        onChangeApiKey={() => setIsApiKeyDialogOpen(true)} 
+      />
       
       <div className="flex-1 overflow-hidden flex flex-col">
         <ChatContainer

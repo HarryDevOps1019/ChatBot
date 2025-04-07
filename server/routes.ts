@@ -54,8 +54,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         responseText = await geminiService.generateResponse(message, apiKey);
       } catch (error) {
         console.error("Error generating response:", error);
+        
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        
+        // Check if it's an API key issue
+        if (errorMessage.includes("API key") || errorMessage.includes("key not valid")) {
+          return res.status(401).json({
+            error: "Invalid API key. Please check your Gemini API key and try again.",
+            sessionId: currentSessionId
+          });
+        }
+        
         return res.status(500).json({ 
           error: "Failed to generate AI response",
+          details: errorMessage,
           sessionId: currentSessionId 
         });
       }

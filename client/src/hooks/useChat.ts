@@ -77,9 +77,24 @@ export function useChat() {
     onError: (error) => {
       console.error("Error sending message:", error);
       
+      let errorMessage = "Failed to get a response. Please try again.";
+      
+      // Check if it's an API key error
+      if (error instanceof Error && error.message.includes("API key")) {
+        errorMessage = "Invalid API key. Please check your Gemini API key and try again.";
+        // Clear stored API key if it's invalid
+        localStorage.removeItem("gemini_api_key");
+        setApiKey(null);
+        // Show the dialog again
+        setTimeout(() => {
+          const event = new CustomEvent("open-api-key-dialog");
+          window.dispatchEvent(event);
+        }, 500);
+      }
+      
       toast({
         title: "Error",
-        description: "Failed to get a response. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
       
