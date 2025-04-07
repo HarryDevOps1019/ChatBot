@@ -1,0 +1,33 @@
+Error sending message: 
+Error {}
+message: "500: {"error":"Failed to generate AI response","details":"Gemini API error: 404 - models/gemini-pro is not found for API version v1, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","sessionId":"iqqMMPoXMRZ0CuyJCp0yt"}"
+stack: "Error: 500: {"error":"Failed to generate AI response","details":"Gemini API error: 404 - models/gemini-pro is not found for API version v1, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","sessionId":"iqqMMPoXMRZ0CuyJCp0yt"}↵ at throwIfResNotOk (https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/src/lib/queryClient.ts:5:11)↵ at async apiRequest (https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/src/lib/queryClient.ts:15:3)↵ at async Object.sendMessage (https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/src/lib/gemini.ts:11:22)"
+get stack: ƒ ()
+length: 0
+name: ""
+[[Prototype]]: ƒ ()
+set stack: ƒ ()
+length: 1
+name: ""
+[[Prototype]]: ƒ ()
+apply: ƒ apply()
+arguments: "'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them"
+get arguments: ƒ ()
+set arguments: ƒ ()
+bind: ƒ bind()
+call: ƒ call()
+caller: "'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them"
+get caller: ƒ ()
+set caller: ƒ ()
+constructor: ƒ Function()
+length: 0
+name: ""
+toString: ƒ toString()
+Symbol(Symbol.hasInstance): undefined
+[[Prototype]]: Object
+[[Prototype]]: Object
+
+at t.value (https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://b4a5f024-41e2-422d-a64b-2c341a532953-00-x4o6m12tbdz.worf.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400

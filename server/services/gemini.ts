@@ -20,7 +20,8 @@ export class GeminiService {
     if (!this.defaultApiKey) {
       console.warn("GEMINI_API_KEY not found in environment variables");
     }
-    this.baseUrl = 'https://generativelanguage.googleapis.com/v1';
+    // Use the latest API version
+    this.baseUrl = 'https://generativelanguage.googleapis.com/v1beta';
   }
   
   /**
@@ -38,7 +39,8 @@ export class GeminiService {
     }
     
     try {
-      const url = `${this.baseUrl}/models/gemini-pro:generateContent?key=${effectiveApiKey}`;
+      // The correct format for Gemini API URL
+      const url = `${this.baseUrl}/models/gemini-1.5-pro:generateContent?key=${effectiveApiKey}`;
       
       const response = await fetch(url, {
         method: 'POST',

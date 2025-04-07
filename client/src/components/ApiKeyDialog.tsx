@@ -44,8 +44,8 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
     setIsLoading(true);
     
     try {
-      // Test the API key with a simple request
-      const testResponse = await fetch(`https://generativelanguage.googleapis.com/v1/models?key=${apiKey}`);
+      // Test the API key with a simple request - using the v1beta endpoint
+      const testResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
       
       if (!testResponse.ok) {
         const errorData = await testResponse.json();
