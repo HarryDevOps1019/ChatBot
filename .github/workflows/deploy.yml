@@ -4,9 +4,17 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
     - uses: actions/checkout@v4
@@ -15,9 +23,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
+        cache: 'npm'
         
     - name: Install dependencies
-      run: npm install
+      run: npm ci # More reliable than npm install
       
     - name: Build project
       run: npm run build
@@ -26,4 +35,6 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build  # Change this to your build output directory
+        publish_dir: ./build
+        keep_files: false # Clean old files before deploy
+        force_orphan: true # Single commit in gh-pages branch
