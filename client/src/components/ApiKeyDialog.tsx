@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Key, GraduationCap } from "lucide-react";
 
 interface ApiKeyDialogProps {
   isOpen: boolean;
@@ -77,42 +78,44 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md border border-primary/30 bg-[#1A1C2E]/95 backdrop-blur-xl shadow-[0_0_30px_rgba(137,73,223,0.2)]">
-        <DialogHeader>
-          <DialogTitle className="text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-400">Enter Gemini API Key</DialogTitle>
-          <DialogDescription className="text-gray-300">
-            To explore the cosmos with TapTalk, you need your own Gemini API key.
-            Your key is stored securely in your browser and only used to communicate with Gemini.
-            We never store your API key on our servers.
+      <DialogContent className="sm:max-w-md border border-gray-200 bg-white shadow-lg">
+        <DialogHeader className="pb-2">
+          <div className="mx-auto bg-blue-100 p-2 rounded-full mb-4">
+            <GraduationCap className="h-6 w-6 text-primary" />
+          </div>
+          <DialogTitle className="text-xl text-center">Enter Gemini API Key</DialogTitle>
+          <DialogDescription className="text-gray-600 text-center">
+            To use TapTalk's educational assistant, you need a Gemini API key.
+            Your key stays in your browser and is only used to access the AI.
           </DialogDescription>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4 py-4">
+        <form onSubmit={handleSubmit} className="space-y-4 py-2">
           <div className="space-y-3">
             <Input
               id="apiKey"
               placeholder="Enter your Gemini API key"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              className="w-full bg-black/40 border-primary/30 focus:border-primary/60 focus:ring-primary/30 text-white"
+              className="w-full border-gray-300 focus:border-primary focus:ring-primary/30"
               type="password"
               autoComplete="off"
             />
-            <div className="text-xs space-y-2 text-gray-400 bg-primary/5 p-3 rounded-lg border border-primary/20">
+            <div className="text-sm space-y-2 text-gray-700 bg-blue-50 p-4 rounded-lg border border-blue-100">
               <p>
                 Don't have an API key?{" "}
                 <a
                   href="https://ai.google.dev/tutorials/setup"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary/90 hover:text-primary transition-colors"
+                  className="text-primary font-medium hover:text-primary/80 transition-colors"
                 >
-                  Get one from Google AI Studio
+                  Get one for free from Google AI Studio
                 </a>
               </p>
-              <p className="font-medium text-primary/80">How to get your API key:</p>
+              <p className="font-medium text-gray-800 mt-2">How to get your API key:</p>
               <ol className="list-decimal pl-5 space-y-1.5">
-                <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-primary/90 hover:text-primary transition-colors">Google AI Studio</a></li>
+                <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">Google AI Studio</a></li>
                 <li>Sign in with your Google account</li>
                 <li>Create an API key or use an existing one</li>
                 <li>Copy and paste it here</li>
@@ -120,13 +123,13 @@ export const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({
             </div>
           </div>
           
-          <DialogFooter className="sm:justify-end">
+          <DialogFooter className="sm:justify-end pt-2">
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white"
             >
-              {isLoading ? "Verifying Key..." : "Activate Key"}
+              {isLoading ? "Verifying Key..." : "Connect to TapTalk"}
             </Button>
           </DialogFooter>
         </form>
