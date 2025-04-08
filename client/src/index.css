@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes stars {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
@@ -26,8 +17,7 @@
   }
 
   body {
-    @apply font-sans antialiased text-foreground;
-    background: linear-gradient(to bottom, #0f0f23 0%, #1a1a40 100%);
+    @apply font-sans antialiased text-foreground bg-gray-50;
     position: relative;
     overflow-x: hidden;
   }
@@ -40,40 +30,24 @@
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(2px 2px at 40px 60px, #ffffff 100%, transparent),
-      radial-gradient(2px 2px at 20px 50px, #ffffff 100%, transparent),
-      radial-gradient(2px 2px at 30px 100px, #ffffff 100%, transparent),
-      radial-gradient(2px 2px at 80px 120px, #ffffff 100%, transparent),
-      radial-gradient(2px 2px at 110px 80px, #ffffff 100%, transparent),
-      radial-gradient(2px 2px at 200px 160px, #ffffff 100%, transparent);
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    opacity: 0.2;
+      linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
     z-index: -1;
   }
 }
 
 @layer components {
-  .message-bubble-user {
-    @apply bg-primary/15 border border-primary/30 shadow-lg;
-    backdrop-filter: blur(8px);
-  }
-
-  .message-bubble-ai {
-    @apply bg-card/80 border border-primary/20 shadow-lg;
-    backdrop-filter: blur(8px);
-  }
-
   .chat-input {
-    @apply backdrop-blur-md bg-card/80 border border-primary/30 shadow-lg;
+    @apply bg-white border border-gray-200 shadow-sm;
   }
 
   .welcome-card {
-    @apply bg-background/60 backdrop-blur-lg border border-primary/20 hover:border-primary/60 transition-all duration-300;
+    @apply bg-white border border-gray-200 hover:border-primary/50 hover:shadow-md transition-all duration-300;
   }
 
   .header {
-    @apply bg-background/80 backdrop-blur-lg shadow-md border-b border-primary/20;
+    @apply bg-white shadow-sm border-b border-gray-200;
   }
 
   .typing-indicator span {

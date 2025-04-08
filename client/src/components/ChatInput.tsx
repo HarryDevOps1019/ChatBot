@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Send } from "lucide-react";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -42,14 +43,14 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
   };
 
   return (
-    <footer className="p-4 border-t border-primary/20">
+    <footer className="p-4 border-t border-gray-200 bg-white">
       <div className="max-w-4xl mx-auto">
         <form onSubmit={handleSubmit} className="relative">
           <textarea
             ref={textareaRef}
             id="user-input"
-            className="chat-input w-full rounded-lg pl-4 pr-14 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none text-foreground"
-            placeholder="Ask about the cosmos..."
+            className="chat-input w-full rounded-lg pl-4 pr-14 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none text-gray-800"
+            placeholder="Ask any academic question..."
             rows={1}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -60,19 +61,16 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
             type="submit"
             className={`absolute right-3 bottom-2.5 p-2 rounded-full focus:outline-none transition-all duration-300 ${
               isLoading || !message.trim() 
-                ? "text-gray-500 cursor-not-allowed" 
-                : "text-primary hover:text-primary-foreground hover:bg-primary shadow-[0_0_10px_rgba(137,73,223,0.5)]"
+                ? "text-gray-400 cursor-not-allowed" 
+                : "text-primary hover:text-white hover:bg-primary"
             }`}
             disabled={isLoading || !message.trim()}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m3 3 3 9-3 9 19-9Z" />
-              <path d="M6 12h16" />
-            </svg>
+            <Send size={16} />
           </button>
         </form>
-        <div className="text-xs text-gray-400 mt-2 text-center">
-          TapTalk may display inaccurate info, including about people, so double-check its responses.
+        <div className="text-xs text-gray-500 mt-2 text-center">
+          TapTalk is designed to help with educational questions. Always verify information for academic assignments.
         </div>
       </div>
     </footer>

@@ -13,14 +13,14 @@ export const ExampleCard: React.FC<ExampleCardProps> = ({
 }) => {
   return (
     <div 
-      className="bg-[#1A1C2E] p-5 rounded-xl transition-all cursor-pointer border border-primary/20 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(137,73,223,0.3)] group"
+      className="welcome-card p-5 rounded-lg transition-all cursor-pointer hover:shadow-md group"
       onClick={onClick}
     >
-      <div className="text-primary mb-3 flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-all">
+      <div className="text-primary mb-4 flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 border border-blue-100 group-hover:bg-blue-100 transition-all mx-auto">
         {iconComponent || <i className={icon}></i>}
       </div>
-      <h3 className="font-medium text-white mb-2 group-hover:text-primary transition-colors">{title}</h3>
-      <p className="text-sm text-gray-400">{description}</p>
+      <h3 className="font-medium text-gray-800 mb-2 group-hover:text-primary transition-colors text-center">{title}</h3>
+      <p className="text-sm text-gray-600 text-center">{description}</p>
     </div>
   );
 };

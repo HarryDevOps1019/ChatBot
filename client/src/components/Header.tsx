@@ -1,5 +1,5 @@
 import React from "react";
-import { Key, RotateCcw, Rocket } from "lucide-react";
+import { Key, RotateCcw, BookOpen, GraduationCap } from "lucide-react";
 
 interface HeaderProps {
   onClearChat: () => void;
@@ -7,17 +7,17 @@ interface HeaderProps {
 }
 
 /**
- * Header component with TapTalk space theme branding and controls
+ * Header component with TapTalk education theme branding and controls
  */
 export const Header: React.FC<HeaderProps> = ({ onClearChat, onChangeApiKey }) => {
   return (
-    <header className="header py-3 px-4 sm:px-6 flex items-center justify-between">
+    <header className="header py-3 px-4 sm:px-6 flex items-center justify-between border-b">
       <div className="flex items-center">
         <div className="flex items-center gap-2">
-          <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(137,73,223,0.5)]">
-            <Rocket className="h-5 w-5 text-white" />
+          <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center shadow-md">
+            <GraduationCap className="h-5 w-5 text-white" />
           </div>
-          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">TapTalk</h1>
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400">TapTalk</h1>
         </div>
       </div>
       
