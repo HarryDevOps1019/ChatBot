@@ -2,42 +2,28 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
+    - uses: actions/checkout@v4
+    
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: '16'
-
+        node-version: 18
+        
     - name: Install dependencies
       run: npm install
-
-    - name: Build the project
+      
+    - name: Build project
       run: npm run build
-
+      
     - name: Deploy to GitHub Pages
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        
-        if ! git ls-remote --exit-code origin gh-pages; then
-          git checkout --orphan gh-pages
-        else
-          git checkout gh-pages
-        fi
-
-        cp -r build/* .
-        git add .
-        git commit -m "Deploy to GitHub Pages"
-        git push origin gh-pages --force
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build  # Change this to your build output directory
